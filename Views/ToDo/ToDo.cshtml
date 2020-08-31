@@ -1,0 +1,48 @@
+﻿@{ 
+    ViewData ["Title"] = "Index";
+}
+
+<h2>To Do List</h2>
+
+
+@model List<ToDoList>
+
+<table class="table table-bordered shadow table-hover table-info">
+    <tr class="d-table-row">
+        <th>ToDoListId</th>
+        <th>TaskDescription</th>
+        <th>DueDate</th>
+        <th>Complete?</th>
+        <th>UserId</th>
+        <th></th>
+    </tr>
+
+    @foreach(ToDoList item in Model)
+    {
+        <tr>
+            <td>@item.ToDoListId</td>
+            <td>@item.TaskDescription</td>
+            <td>@item.DueDate</td>
+            <td>@item.UserId</td>
+            @if (item.Complete == true)
+            {
+                <td>Task complete</td>
+            }
+            else
+            {
+                <td>Task not complete</td>
+            }
+            <td class="btn-warning">
+                <a asp-controller="DeleteToDoList">Delete this Task</a>
+            </td>
+            <td class="btn btn-primary">
+                <a asp-controller="SeeToDoListByUser">See this Person's Tasks</a>
+            </td>
+        </tr>
+
+    }
+
+    </table>
+<a asp-action="AddToDoList" class="btn btn-primary">Add new task to the To Do List</a>
+<a asp-action="UpdateToDoList" class="btn btn-secondary">Update Task description, Due Date, and make changes to tasks.</a>
+<a asp-action="SaveChanges" class="btn-danger">This will save all changes made to the list!</a>
